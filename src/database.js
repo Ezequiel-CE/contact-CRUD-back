@@ -17,6 +17,12 @@ const getContactsFromDb = async () => {
   return contacts;
 };
 
+const getSingleContactFromDb = async (id) => {
+  const results = await pool.query("SELECT * FROM contact WHERE id = ?", [id]);
+  const contact = results[0];
+  return contact;
+};
+
 const addContactToDb = async (data) => {
   const results = await pool.query(
     "INSERT INTO contact (name,last_name,phone_number,mail,adress,description) VALUES(?,?,?,?,?,?)",
@@ -29,10 +35,12 @@ const addContactToDb = async (data) => {
       data.description,
     ]
   );
-  return results;
+  const id = results[0].insertId;
+  return getSingleContactFromDb(id);
 };
 
 module.exports = {
   getContactsFromDb,
   addContactToDb,
+  getSingleContactFromDb,
 };

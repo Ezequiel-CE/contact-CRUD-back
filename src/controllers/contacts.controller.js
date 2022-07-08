@@ -1,4 +1,8 @@
-const { getContactsFromDb, addContactToDb } = require("../database");
+const {
+  getContactsFromDb,
+  addContactToDb,
+  getSingleContactFromDb,
+} = require("../database");
 const contactValidation = require("../utils/validation");
 
 const getContacts = async (req, res) => {
@@ -7,6 +11,18 @@ const getContacts = async (req, res) => {
     res.status(200).json({ success: true, contacts });
   } catch (error) {
     res.status(400).json({ success: false, message: "cant get contacts" });
+  }
+};
+
+const getSingleContact = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const contact = await getSingleContactFromDb(id);
+    res.status(200).json({ success: true, contact });
+  } catch (error) {
+    res
+      .status(400)
+      .json({ success: false, message: "cant get single contact" });
   }
 };
 
@@ -29,4 +45,5 @@ const saveContact = async (req, res) => {
 module.exports = {
   getContacts,
   saveContact,
+  getSingleContact,
 };
