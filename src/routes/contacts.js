@@ -1,7 +1,7 @@
 const router = require("express").Router();
+const contactController = require("../controllers/contacts.controller");
 
-router.get("/", (req, res) => {
-  res.send("listado de contactos");
-});
+router.get("/", contactController.getContacts);
+router.post("/", contactController.saveContact);
 
 module.exports = router;
