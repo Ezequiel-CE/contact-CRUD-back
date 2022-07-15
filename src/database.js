@@ -51,7 +51,7 @@ const deleteContactFromDb = async (id) => {
 
 const updateContactFromDb = async (id, newData) => {
   const { name, lastName, phone, mail, adress, description } = newData;
-  const results = await pool.query(
+  await pool.query(
     "UPDATE contact SET name = ?,last_name = ?,phone_number = ?,mail = ?,adress = ?,description = ? WHERE id = ?",
     [name, lastName, phone, mail, adress, description, id]
   );
