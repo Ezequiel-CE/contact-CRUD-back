@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
+const db = require("./src/database");
+const Contact = require("./src/models/contact");
 
 //routes imports
 
@@ -16,6 +18,20 @@ app.use(cors());
 //routes
 app.use("/api/contacts", contactsRoute);
 
-app.listen(4000, () => {
-  console.log("listen on port 4000");
-});
+const init = async () => {
+  try {
+    await db.authenticate();
+
+    console.log("Connection has been established successfully.");
+
+    await Contact.sync();
+
+    app.listen(4000, () => {
+      console.log("listen on port 4000");
+    });
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+};
+
+init();
