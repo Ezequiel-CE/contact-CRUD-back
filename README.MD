@@ -8,6 +8,7 @@ Backend for the contact CRUD app.
 - [ExpressJS](https://expressjs.com/)
 - [Sequelize](https://sequelize.org/)
 - [MySQL](https://www.mysql.com/)
+- [Joi](https://joi.dev/)
 
 ## Routes
 
