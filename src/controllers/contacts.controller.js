@@ -3,7 +3,9 @@ const contactValidation = require("../utils/validation");
 
 const getContacts = async (req, res) => {
   try {
-    const contacts = await Contact.findAll();
+    const contacts = await Contact.findAll({
+      attributes: ["id", "firstName", "lastName", "imageUrl"],
+    });
     res.status(200).json({ success: true, contacts });
   } catch (error) {
     res.status(400).json({ success: false, message: "cant get contacts" });
@@ -14,6 +16,12 @@ const getSingleContact = async (req, res) => {
   const { id } = req.params;
   try {
     const contact = await Contact.findByPk(id);
+    console.log(contact);
+    if (!contact) {
+      return res
+        .status(400)
+        .json({ success: false, message: "contact dont exist" });
+    }
     res.status(200).json({ success: true, contact });
   } catch (error) {
     res
