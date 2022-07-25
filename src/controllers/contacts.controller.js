@@ -16,7 +16,7 @@ const getSingleContact = async (req, res) => {
   const { id } = req.params;
   try {
     const contact = await Contact.findByPk(id);
-    console.log(contact);
+
     if (!contact) {
       return res
         .status(400)
@@ -42,7 +42,7 @@ const saveContact = async (req, res) => {
     const contact = await Contact.create({
       firstName: value.firstName,
       lastName: value.lastName,
-      phoneNumber: value.phone,
+      phoneNumber: value.phoneNumber,
       mail: value.mail,
       adress: value.adress,
       description: value.description,
@@ -50,7 +50,6 @@ const saveContact = async (req, res) => {
     });
     res.status(200).json({ success: true, contact });
   } catch (err) {
-    console.log(err);
     res.status(400).json({ success: false, message: "cant add contact" });
   }
 };
@@ -75,6 +74,7 @@ const updateContact = async (req, res) => {
       .status(400)
       .json({ success: false, message: error.details[0].message });
   }
+
   const { id } = req.params;
 
   try {
