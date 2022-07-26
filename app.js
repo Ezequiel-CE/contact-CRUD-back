@@ -18,6 +18,8 @@ app.use(cors());
 //routes
 app.use("/api/contacts", contactsRoute);
 
+const PORT = process.env.PORT || 4000;
+
 const init = async () => {
   try {
     await db.authenticate();
@@ -26,8 +28,8 @@ const init = async () => {
 
     await Contact.sync();
 
-    app.listen(4000, () => {
-      console.log("listen on port 4000");
+    app.listen(PORT, () => {
+      console.log("listen on port " + PORT);
     });
   } catch (error) {
     console.error("Unable to connect to the database:", error);
